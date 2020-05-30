@@ -14,7 +14,6 @@ const App = (props) => {
   const [vote, setVote] = useState(Array.apply(null, new Array(anecdotes.length)).map(Number.prototype.valueOf, 0));
   let [mostVote, setMostVote] = useState(0);
 
-  console.log(selected);
   return(
     <div>
       <Heading text="Anecdote of the day" />

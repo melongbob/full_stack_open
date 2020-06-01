@@ -4,12 +4,14 @@ import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
 import personService from './services/persons';
+import Notification from './components/Notification';
 
 const App = () => {
     const [persons, setPersons] = useState([]);
     const [newName, setNewName] = useState('');
     const [newNumber, setNewNumber] = useState('');
     const [filter, setFilter] = useState('');
+    const [message, setMessage] = useState(null);
 
     useEffect(() => {
             personService
@@ -29,14 +31,33 @@ const App = () => {
 
         if(persons.map(person => person.name).includes(newName)){
             if(window.confirm(`${newName} is already added to the phonebook, replace the old number with a new one?`)){                
-                const id = persons.find(person => person.name === newName).id;
+                const person = persons.find(person => person.name === newName);
 
                 personService
-                    .update(id, personObject)
+                    .update(person.id, personObject)
                     .then(returnedPerson => {
-                        setPersons(persons.map(person => person.id !== id ? person : returnedPerson));
+                        setPersons(persons.map(p => p.id !== person.id ? p : returnedPerson));
                         setNewName('');
                         setNewNumber('');
+                        setMessage({
+                            type: 'notification',
+                            content: `Updated ${returnedPerson.name}`
+                        });
+                        setTimeout(() => {
+                            setMessage(null);
+                        }, 5000)
+                    })
+                    .catch(error => {
+                        setNewName('');
+                        setNewNumber('');
+                        setMessage({
+                            type: 'error',
+                            content: `Person ${person.name} was already removed from the server`
+                        });
+                        setTimeout(() => {
+                            setMessage(null);
+                        }, 5000)
+                        setPersons(persons.filter(p => p.id !== person.id));
                     });
             }
         } else {
@@ -46,6 +67,13 @@ const App = () => {
                     setPersons(persons.concat(returnedPerson));
                     setNewName('');
                     setNewNumber('');
+                    setMessage({
+                        type: 'notification',
+                        content: `Updated ${returnedPerson.name}`
+                    });
+                    setTimeout(() => {
+                        setMessage(null);
+                    }, 5000)
                 }
             );
         }
@@ -79,6 +107,7 @@ const App = () => {
     return (
         <div>
             <h2>Phonebook</h2>
+            <Notification message={message} />
             <Filter filter={filter} handleFilterChange={handleFilterChange} />
 
             <h3>Add a new</h3>

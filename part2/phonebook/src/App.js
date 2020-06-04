@@ -58,7 +58,6 @@ const App = () => {
                         setTimeout(() => {
                             setMessage(null);
                         }, 5000)
-                        setPersons(persons.filter(p => p.id !== person.id));
                     });
             }
         } else {

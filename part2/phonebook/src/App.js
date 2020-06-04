@@ -52,7 +52,8 @@ const App = () => {
                         setNewNumber('');
                         setMessage({
                             type: 'error',
-                            content: `Person ${person.name} was already removed from the server`
+                            content: error.response.data.error
+                            //content: `Person ${person.name} was already removed from the server`
                         });
                         setTimeout(() => {
                             setMessage(null);
@@ -69,13 +70,18 @@ const App = () => {
                     setNewNumber('');
                     setMessage({
                         type: 'notification',
-                        content: `Updated ${returnedPerson.name}`
+                        content: `Added ${returnedPerson.name}`
                     });
                     setTimeout(() => {
                         setMessage(null);
                     }, 5000)
-                }
-            );
+                })
+                .catch(error => {
+                    setMessage({
+                        type: 'error',
+                        content: error.response.data.error
+                    })
+                });
         }
     }
 

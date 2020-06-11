@@ -102,6 +102,30 @@ test('missing title or url properties result in 400 Bad request', async () => {
     .expect('Content-Type', /application\/json/)
 })
 
+test('a blog can be deleted', async () => {
+  const response = await api.get('/api/blogs')
+  const firstBlog = response.body[0]
+
+  await api
+    .delete(`/api/blogs/${firstBlog.id}`)
+    .expect(204)
+    
+  const temp = await api.get('/api/blogs')
+  const blogsAfterDeletion = temp.body
+  expect(blogsAfterDeletion).toHaveLength(initialBlogs.length - 1)
+})
+
+test('a blog can be updated', async () => {
+  const response = await api.get('/api/blogs')
+  const firstBlog = response.body[0]
+
+  await api
+    .put(`/api/blogs/${firstBlog.id}`)
+    .send({ ...firstBlog, likes: 10 })
+    .expect(200)
+    .expect('Content-Type', /application\/json/)
+})
+
 afterAll(() => {
   mongoose.connection.close()
 })

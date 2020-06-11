@@ -1,0 +1,10 @@
+PUT http://localhost:3003/api/blogs/5edee6b43008d10594cf0772
+Content-Type: application/json
+
+  {
+    "likes": 10,
+    "title": "melongbob-tumblr",
+    "author": "Yun Kim",
+    "url": "melongbob.tumblr.com",
+    "id": "5edee6b43008d10594cf0772"
+  }

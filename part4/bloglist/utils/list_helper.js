@@ -56,6 +56,7 @@ const mostLikes = (blogs) => {
   }
   return mostLikes
 }
+
 module.exports = {
   dummy,
   totalLikes,

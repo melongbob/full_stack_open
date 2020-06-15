@@ -1,9 +1,10 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1sdXVra2FpIiwiaWQiOiI1ZWU2ZGQwZTY5NjQ4OTQ0M2M0NTZmOWMiLCJpYXQiOjE1OTIxOTQwODR9.aVatnKofbEYJ--AUUyqutzlV1WalcmE0DbWeqyXEAis
 
 {
   "title": "melongbob-LinkedIn",
   "author": "Yun Kim",
   "url": "linkedin.com/seungyun-kim",
-  "likes": 50
+  "likes": 5
 }

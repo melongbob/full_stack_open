@@ -33,24 +33,26 @@ const Blog = (props) => {
   }
 
   return (
-    <div>
-      <div style={hideWhenVisible}>
+    <div className='blog'>
+      <div style={hideWhenVisible} className='hidden'>
 
-        {blog.title} {blog.author}
+        <div className='title'>{blog.title}</div>
+        <div className='author'>{blog.author}</div>
         <button onClick={toggleVisibility}>view</button>
 
       </div>
 
-      <div style={showWhenVisible}>
+      <div style={showWhenVisible} className='visible'>
 
         <div>
-          {blog.title} {blog.author}
+          <div className='title'>{blog.title}</div>
+          <div className='author'>{blog.author}</div>
           <button onClick={toggleVisibility}>hide</button>
         </div>
 
-        <div> {blog.url} </div>
+        <div className='url'>{blog.url}</div>
 
-        <div>
+        <div className='likes'>
           {blog.likes}
           <button onClick={() => handleLike(blog)}>like</button>
         </div>

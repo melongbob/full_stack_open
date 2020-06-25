@@ -1,9 +1,9 @@
 const messageReducer = (state = '', action) => {
   switch(action.type) {
-    case 'VOTED':
+    case 'NOTIFY':
       return action.message
-    case 'CREATED_ANECDOTE':
-      return action.message
+    // case 'CREATED_ANECDOTE':
+    //   return action.message
     case 'CLEAR':
       return action.message
     default:
@@ -18,18 +18,26 @@ export const clearMessage = () => {
   }
 }
 
-export const voteMessage = (content) => {
-  return {
-    type: 'VOTED',
-    message: `you voted '${content}'`
+export const setNotification = (message, seconds) => {
+  return async dispatch => {
+    dispatch({
+      type: 'NOTIFY',
+      message
+    })
+    setTimeout(() => {
+      dispatch({
+        type: 'CLEAR',
+        message: ''
+      })
+    }, seconds*1000)
   }
 }
 
-export const createAnecdoteMessage = (content) => {
-  return {
-    type: 'CREATED_ANECDOTE',
-    message: `you created '${content}'`
-  }
-}
+// export const createAnecdoteMessage = (content) => {
+//   return {
+//     type: 'CREATED_ANECDOTE',
+//     message: `you created '${content}'`
+//   }
+// }
 
 export default messageReducer

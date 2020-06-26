@@ -18,13 +18,16 @@ export const clearMessage = () => {
   }
 }
 
+var timeoutId;
+
 export const setNotification = (message, seconds) => {
   return async dispatch => {
     dispatch({
       type: 'NOTIFY',
       message
     })
-    setTimeout(() => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
       dispatch({
         type: 'CLEAR',
         message: ''
